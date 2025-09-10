@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Clean Clock</title>
+  <title>Big Clock</title>
   <style>
     :root { --bg:#0f1115; --fg:#e6e8ee; --sub:#9aa3b2; }
     html,body{height:100%;margin:0}
@@ -13,8 +13,8 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
     .wrap{ text-align:center }
-    .time{ font-size: clamp(36px, 8vw, 110px); letter-spacing: .06em }
-    .date{ margin-top:.3rem; font-size: clamp(12px, 2.5vw, 20px); color:var(--sub) }
+    .time{ font-size: clamp(60px, 15vw, 160px); letter-spacing: .08em }
+    .date{ margin-top:.5rem; font-size: clamp(20px, 5vw, 40px); color:var(--sub) }
     .blink{ animation: blink 1s steps(1,end) infinite }
     @keyframes blink{ 50% { opacity: .25 } }
   </style>
@@ -25,20 +25,17 @@
     <div class="date" id="d"></div>
   </div>
   <script>
-    const opts = { hour12: false }; // set to true for 12-hour
     function pad(n){ return String(n).padStart(2,'0'); }
     function fmt(){
       const now = new Date();
       let h = pad(now.getHours()), m = pad(now.getMinutes()), s = pad(now.getSeconds());
-      // blinking colon
       const colon = (now.getSeconds()%2===0) ? ':' : '<span class="blink">:</span>';
       document.getElementById('t').innerHTML = `${h}${colon}${m}${colon}${s}`;
       document.getElementById('d').textContent = now.toLocaleDateString(undefined, {
-        weekday:'short', year:'numeric', month:'short', day:'numeric'
+        weekday:'long', year:'numeric', month:'short', day:'numeric'
       });
     }
-    fmt(); 
-    setInterval(fmt, 1000);
+    fmt(); setInterval(fmt, 1000);
   </script>
 </body>
 </html>
